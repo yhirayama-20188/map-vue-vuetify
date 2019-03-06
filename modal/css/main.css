@@ -1,0 +1,18 @@
+/*reset*/
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+input {
+  display: none;
+}
+a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+#map-on__country, #map-on__city {
+  display: flex;
+  flex-flow: column wrap;
+}
