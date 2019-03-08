@@ -36,25 +36,52 @@
             white-space: nowrap;
             width: inherit
         }
+        .bg-map {
+            width: 600px;
+            height: 500px;
+            margin: 0 auto;
+            background-image: url(../img/tabikobo_map.png);
+            background-size: cover;
+        }
     </style>
 </head>
 
 <body>
     <div id="app">
         <v-app id="inspire" @click="closeModal()">
-            <div>
+            <div class="bg-map">
                 <v-layout row justify-center>
-                    <v-btn color="primary" dark @click="dialog = true">Open Dialog 1</v-btn>
-                    <v-btn color="primary" dark @click="dialog2 = true" class="dst-list">
-                        <input type="radio" id="dstAsi" value="ASI" v-model="checkedDst" class="dst-list__input">
-                        <label for="dstAsi" class="dst-list__label" @click="dialog2 = true">アジア</label>
-                    </v-btn>
-                    <v-btn color="primary" dark @click="dialog2 = true" class="dst-list">
-                        <input type="radio" id="dstAsb" value="ASB" v-model="checkedDst" class="dst-list__input">
-                        <label for="dstAsb" class="dst-list__label" @click="dialog2 = true">アジアビーチ</label>
-                    </v-btn>
-                    <v-btn color="primary" dark @click="dialog3 = true">Open Dialog 3</v-btn>
-                    <span>Checked Dst: {{ checkedDst }}</span>
+                    <div>
+                        <v-btn color="primary" dark @click="dialog = true">Open Dialog 1</v-btn>
+                        <v-btn color="primary" dark @click="dialog2 = true" class="dst-list">
+                            <input type="radio" id="dstAsi" value="ASI" v-model="checkedDst" class="dst-list__input">
+                            <label for="dstAsi" class="dst-list__label" @click="dialog2 = true">アジア</label>
+                        </v-btn>
+                        <!-- <input type="radio" id="dstAsi" value="ASI" v-model="checkedDst" class="dst-list__input">
+                        <label for="dstAsi" class="dst-list__label">
+                            <v-btn color="primary" dark @click="dialog2 = true" class="dst-list" for="dstAsi" @click="dialog2 = true">アジア</v-btn>
+                        </label> -->
+
+                        <v-btn color="primary" dark @click="dialog2 = true" class="dst-list">
+                            <input type="radio" id="dstAsb" value="ASB" v-model="checkedDst" class="dst-list__input">
+                            <label for="dstAsb" class="dst-list__label" @click="dialog2 = true">アジアビーチ</label>
+                        </v-btn>
+
+                        <v-radio-group v-model="checkedDst" @click="dialog2 = true">
+                            <v-radio label="アジア" value="ASI" class="body-2"></v-radio>
+                            <v-radio label="アジアビーチ" value="ASB"></v-radio>
+                            <v-radio label="ハワイ" value="HWI"></v-radio>
+                            <v-radio label="グアム・サイパン" value="GAS"></v-radio>
+                            <v-radio label="ヨーロッパ" value="EUR"></v-radio>
+                            <v-radio label="南太平洋・オセアニア" value="OCE"></v-radio>
+                            <v-radio label="アフリカ" value="AFR"></v-radio>
+                            <v-radio label="アメリカ" value="USA"></v-radio>
+                            <v-radio label="中南米・カリブ海" value="SAM"></v-radio>
+                        </v-radio-group>
+                        <v-btn color="primary" dark @click="dialog3 = true">Open {{ checkedDst }}</v-btn>
+                        
+                    </div>
+
                     <v-menu bottom offset-y>
                         <template v-slot:activator="{ on }">
                             <v-btn v-on="on">A Menu</v-btn>
@@ -68,7 +95,7 @@
                     <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition" scrollable>
                         <v-card tile>
                             <v-toolbar card dark color="primary">
-                                <v-btn icon dark @click="dialog = false">
+                                <v-btn icon dark @click="dialog = false; closeModal">
                                     <v-icon>close</v-icon>
                                 </v-btn>
                                 <v-toolbar-title>Settings</v-toolbar-title>
@@ -155,7 +182,7 @@
                     </v-dialog>
                     <v-dialog v-model="dialog2" max-width="500px">
                         <v-card>
-                            <v-card-title class="headline grey lighten-2" primary-title>
+                            <v-card-title class="title grey lighten-2 font-weight-bold" primary-title>
                                 国を選択
                             </v-card-title>
                             <v-list>
@@ -177,7 +204,7 @@
                     <v-dialog v-model="dialog3" max-width="500px">
                     <!-- <v-dialog v-if="showCity" max-width="500px"> -->
                         <v-card>
-                            <v-card-title class="headline grey lighten-2" primary-title>
+                            <v-card-title class="title grey lighten-2 font-weight-bold" primary-title>
                             都市を選択
                             </v-card-title>
                             <v-list>
@@ -214,6 +241,7 @@
                 data() {
                     return {
                         // data制御
+                        dstList: ['ASI', 'ASB'],
                         checkedDst: '',
                         checkedCountry: '',
                         // Vuetify
